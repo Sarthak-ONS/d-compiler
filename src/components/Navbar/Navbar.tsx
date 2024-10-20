@@ -1,13 +1,15 @@
 "use client";
+
 import { cn } from "@/utils/util";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { IoTerminalOutline } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { MdRoundaboutRight } from "react-icons/md";
 import ThemeToggle from "@/components/ui/theme-toggle";
-import { usePathname } from "next/navigation";
+import { LANGUAGES } from "@/constant";
 
 const NAVBAR_ITEMS = [
   {
@@ -28,12 +30,7 @@ const NAVBAR_ITEMS = [
   },
 ];
 
-const NAV_EXCULUDE_ROUTES = [
-  "/compile/javascript",
-  "/compile/python",
-  "/compile/java",
-  "/compile/cpp",
-];
+const NAV_EXCULUDE_ROUTES = [...LANGUAGES.map((lang) => lang.href)];
 
 function Navbar({ className }: { className?: string }) {
   const pathName = usePathname();

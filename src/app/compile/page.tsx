@@ -1,33 +1,8 @@
 "use client";
 
 import { Spotlight } from "@/components/ui/spotlight";
-import { IoLogoJavascript, IoLogoPython } from "react-icons/io5";
-import { FaJava } from "react-icons/fa";
-import { TbBrandCpp } from "react-icons/tb";
 import Link from "next/link";
-
-const LANGUAGES = [
-  {
-    title: "Javascript",
-    icon: IoLogoJavascript,
-    href: "/compile/javascript",
-  },
-  {
-    title: "Python",
-    icon: IoLogoPython,
-    href: "/compile/python",
-  },
-  {
-    title: "Java",
-    icon: FaJava,
-    href: "/compile/java",
-  },
-  {
-    title: "C++",
-    icon: TbBrandCpp,
-    href: "/compile/cpp",
-  },
-];
+import { LANGUAGES } from "@/constant";
 
 const page = () => {
   return (
@@ -41,12 +16,12 @@ const page = () => {
           Select a language
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-10">
-          {LANGUAGES.map(({ title: title, icon: Icon, href: href }, index) => (
+          {LANGUAGES.map(({ title: title, icon: Icon, href: href, id }) => (
             <Link
-              key={index}
+              key={id}
               href={href}
               className="flex flex-col items-center gap-2 text-black dark:text-white
-              bg-white dark:bg-gray-200 p-8 rounded-md shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl
+              bg-white dark:bg-gray-200 p-8 rounded-md shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:rotate-3 hover:-rotate-y-3 hover:-rotate-x-1
               "
             >
               <Icon className="text-6xl" />

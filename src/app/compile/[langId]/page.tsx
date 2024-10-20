@@ -5,10 +5,13 @@ import { useContext, useState } from "react";
 import {
   AiOutlineUpload,
   AiOutlineShareAlt,
-  AiOutlineLoading,
+  AiOutlineCopy,
 } from "react-icons/ai";
 
 import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-twilight";
 import "ace-builds/src-noconflict/theme-terminal";
@@ -17,13 +20,38 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { ThemeContext } from "@/context/ThemeContext";
-import { ApiError } from "@/utils/util";
+import { ApiError, cn } from "@/utils/util";
+import { LANGUAGES } from "@/constant";
+import { useRouter } from "next/navigation";
 
-const Page = () => {
+const MODES: { [key: string]: string } = {
+  "97": "javascript",
+  "105": "c_cpp",
+  "92": "python",
+  "91": "java",
+};
+
+interface Params {
+  params: { langId: string };
+}
+
+const Page = ({ params }: Params) => {
   const { theme } = useContext(ThemeContext);
   const [code, setCode] = useState<string>("");
   const [output, setOutput] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  const { langId }: { langId: string } = params;
+
+  const currentLanguageData = LANGUAGES.find(
+    (lang) => lang.id === parseInt(langId)
+  );
+
+  if (!currentLanguageData) {
+    return router.push("/compile");
+  }
 
   const handleSubmitCode = async () => {
     if (!code) {
@@ -34,11 +62,15 @@ const Page = () => {
     try {
       const response = await fetch("/api/submission", {
         method: "POST",
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({
+          source_code: code,
+          language_id: langId,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
       });
+
       const data = await response.json();
       setOutput(data.data);
     } catch (error) {
@@ -56,11 +88,11 @@ const Page = () => {
       <div className="flex-[0.5] h-screen w-full ">
         <div className="flex items-center justify-between p-6 py-4">
           <span className="text-center text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white">
-            JavaScript
+            {currentLanguageData!.title}
           </span>
           <div className="flex gap-2 items-center">
             <Button
-              EndIcon={loading ? AiOutlineLoading : AiOutlineUpload}
+              EndIcon={AiOutlineUpload}
               className="bg-white text-black dark:text-white text-sm font-normal dark:bg-[#232323]"
               onClick={handleSubmitCode}
               disabled={!code || loading}
@@ -77,7 +109,7 @@ const Page = () => {
           </div>
         </div>
         <AceEditor
-          mode="javascript"
+          mode={MODES[langId]}
           theme={theme === "light" ? "github" : "twilight"}
           name="UNIQUE_ID_OF_DIV"
           value={code}
@@ -99,22 +131,14 @@ const Page = () => {
             {
               name: "compile",
               bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
-              exec: () => {
-                console.log("Compile");
-              },
-            },
-            {
-              name: "run",
-              bindKey: { win: "Ctrl-Shift-Enter", mac: "Command-Shift-Enter" },
-              exec: () => {
-                console.log("Run");
-              },
+              exec: () => handleSubmitCode(),
             },
             {
               name: "Format",
               bindKey: { win: "Alt-Shift-F", mac: "Command-Shift-F" },
-              exec: () => {
+              exec: async () => {
                 console.log("Format");
+                handleSubmitCode();
               },
             },
           ]}
@@ -131,24 +155,43 @@ const Page = () => {
               onClick={() =>
                 navigator.clipboard.writeText(output?.stdout || "")
               }
+              EndIcon={AiOutlineCopy}
             >
-              copy
-            </Button>
-            <Button
-              className="bg-white text-black dark:text-white text-sm font-normal dark:bg-[#232323]"
-              onClick={() =>
-                setOutput((prev: any) => ({ ...prev, stdout: "" }))
-              }
-            >
-              Clear
+              Copy
             </Button>
           </div>
         </div>
         <div>
+          <div
+            className={cn(
+              "grid grid-cols-2 gap-4 text-black dark:text-white px-4 py-2",
+              {
+                hidden: !output,
+              }
+            )}
+          >
+            <div>
+              <div className="text-sm">Status</div>
+              <div>{output?.status.description}</div>
+            </div>
+            <div>
+              <div className="text-sm">Time</div>
+              <div>{output?.time}</div>
+            </div>
+            <div>
+              <div className="text-sm">Memory</div>
+              <div>{output?.memory}</div>
+            </div>
+            <div>
+              <div className="text-sm">Wall Time</div>
+              <div>{output?.wall_time}</div>
+            </div>
+          </div>
+          <hr />
           <textarea
-            className="w-full h-full p-6 py-4 font-normal text-black dark:text-white dark:bg-[#232323] resize-none text-xl"
+            className="w-full h-full overflow-scroll p-6 py-4 font-normal text-black dark:text-white dark:bg-[#232323] resize-none text-xl"
             placeholder="Output will be displayed here..."
-            value={output?.stdout}
+            value={output?.stdout || output?.stderr || output?.message || ""}
             disabled={true}
             rows={100}
           />

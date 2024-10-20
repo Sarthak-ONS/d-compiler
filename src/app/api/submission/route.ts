@@ -5,9 +5,9 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
 
-    const { code } = reqBody;
+    const { source_code, language_id } = reqBody;
 
-    if (!code) {
+    if (!source_code || !language_id) {
       return NextResponse.json(new ApiError(400, "Code is required"), {
         status: 400,
       });
@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        language_id: 63,
-        source_code: code,
+        language_id,
+        source_code,
       }),
     };
 

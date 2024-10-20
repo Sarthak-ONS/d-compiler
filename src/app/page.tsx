@@ -46,7 +46,7 @@ export default function Home() {
           className="bg-white dark:bg-pink-300 text-black dark:text-white text-xl font-semibold"
           onClick={() => router.push("/compile")}
         >
-          Start Coding
+          Get Started
         </Button>
       </section>
     </div>
