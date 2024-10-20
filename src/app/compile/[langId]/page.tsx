@@ -23,6 +23,7 @@ import { ThemeContext } from "@/context/ThemeContext";
 import { ApiError, cn } from "@/utils/util";
 import { LANGUAGES } from "@/constant";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const MODES: { [key: string]: string } = {
   "97": "javascript",
@@ -110,7 +111,7 @@ const Page = ({ params }: Params) => {
         </div>
         <AceEditor
           mode={MODES[langId]}
-          theme={theme === "light" ? "github" : "twilight"}
+          theme={theme === "dark" ? "github" : "twilight"}
           name="UNIQUE_ID_OF_DIV"
           value={code}
           onChange={(value) => setCode(value)}
@@ -152,9 +153,10 @@ const Page = ({ params }: Params) => {
           <div className="flex gap-2 items-center">
             <Button
               className="bg-white text-black dark:text-white text-sm font-normal dark:bg-[#232323]"
-              onClick={() =>
-                navigator.clipboard.writeText(output?.stdout || "")
-              }
+              onClick={() => {
+                navigator.clipboard.writeText(output?.stdout || "");
+                toast.success("Copied to clipboard");
+              }}
               EndIcon={AiOutlineCopy}
             >
               Copy

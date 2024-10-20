@@ -4,13 +4,13 @@ import { Spotlight } from "@/components/ui/spotlight";
 import Link from "next/link";
 import { LANGUAGES } from "@/constant";
 
-const page = () => {
+const Page = () => {
   return (
     <div className="max-w-[1200px] mx-auto">
       <section className="flex flex-col items-center py-20 h-screen">
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
-          fill="white"
+          fill="var(--pink-700)"
         />
         <h3 className="text-2xl md:text-4xl lg:text-7xl py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
           Select a language
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
