@@ -1,12 +1,13 @@
 "use client";
 
-import Navbar from "@/app/components/Navbar";
-import { Button } from "@/app/components/ui/moving-border";
+import { Button } from "@/components/ui/moving-border";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
-    <div className="dark:bg-black bg-white">
-      <Navbar />
+    <div>
       <section className="min-h-screen max-w-[1200px] relative mx-auto flex flex-col items-center justify-center gap-2">
         <div className="absolute inset-x-0 top-[-10rem] z-0 transform-gpu overflow-hidden blur-3xl sm:top-[-10rem]">
           <svg
@@ -43,9 +44,7 @@ export default function Home() {
         <Button
           borderRadius="1.75rem"
           className="bg-white dark:bg-pink-300 text-black dark:text-white text-xl font-semibold"
-          onClick={() => {
-            console.log("Button Clicked");
-          }}
+          onClick={() => router.push("/compile")}
         >
           Start Coding
         </Button>

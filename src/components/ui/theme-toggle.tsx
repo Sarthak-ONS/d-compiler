@@ -1,9 +1,13 @@
+import { ThemeContext } from "@/context/ThemeContext";
+import { useContext } from "react";
 import {
   AiOutlineMoon as MoonIcon,
   AiOutlineSun as SunIcon,
 } from "react-icons/ai";
 
 const ThemeToggle = () => {
+  const { toggleTheme } = useContext(ThemeContext);
+
   const disableTransitionsTemporarily = () => {
     document.documentElement.classList.add("[&_*]:!transition-none");
     window.setTimeout(() => {
@@ -16,6 +20,7 @@ const ThemeToggle = () => {
     console.log("toggleMode");
     const isDarkMode = document.documentElement.classList.toggle("dark");
     window.localStorage.isDarkMode = isDarkMode;
+    toggleTheme();
   };
 
   return (

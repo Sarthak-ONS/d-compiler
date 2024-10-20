@@ -9,7 +9,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef } from "react";
-import { cn } from "@/app/utils/util";
+import { cn } from "@/utils/util";
 
 export function Button({
   borderRadius = "1.75rem",
@@ -48,7 +48,7 @@ export function Button({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              "h-20 w-20 bg-[radial-gradient(var(--pink-900)_40%,transparent_60%)]",
+              "h-20 w-20 dark:bg-[radial-gradient(var(--pink-900)_40%,transparent_60%)] bg-[radial-gradient(var(--pink-200)_40%,transparent_60%)]",
               borderClassName
             )}
           />
