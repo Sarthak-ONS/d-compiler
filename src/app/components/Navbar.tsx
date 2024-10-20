@@ -25,7 +25,7 @@ function Navbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "font-sans top-4 fixed rounded-md inset-x-0 w-full max-w-[1200px] mx-auto z-[99999] flex justify-between text-white p-4  px-10 transform transition-transform duration-300 ease-in-out dark:bg-transparent bg-white",
+        "top-4 fixed rounded-md inset-x-0 w-full max-w-[1200px] mx-auto z-[99999] flex justify-between text-white p-4  px-10 transform transition-transform duration-300 ease-in-out dark:bg-transparent bg-white",
         className
       )}
     >

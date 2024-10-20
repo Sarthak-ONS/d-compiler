@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "@/app/components/Navbar";
-import Button from "@/app/components/ui/Button";
+import { Button } from "@/app/components/ui/moving-border";
 
 export default function Home() {
   return (
@@ -34,19 +34,20 @@ export default function Home() {
             </defs>
           </svg>
         </div>
-        <h2 className="text-center text-2xl md:text-4xl lg:text-7xl font-sans py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
+        <h2 className="text-center text-2xl md:text-4xl lg:text-7xl py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
           DynamicCode, <br /> DebugCompile.
         </h2>
-        <h6 className="text-center text-xs md:text-sm lg:text-lg font-sans py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
+        <h6 className="text-center text-xs md:text-sm lg:text-lg py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
           Built with Next.js, TailwindCSS, and TypeScript.
         </h6>
         <Button
-          className="mx-auto dark:bg-pink-400 py-4 rounded-full !px-28 font-bold leading-tight"
+          borderRadius="1.75rem"
+          className="bg-white dark:bg-pink-300 text-black dark:text-white text-xl font-semibold"
           onClick={() => {
             console.log("Button Clicked");
           }}
         >
-          Get Started
+          Start Coding
         </Button>
       </section>
     </div>
