@@ -28,7 +28,12 @@ const NAVBAR_ITEMS = [
   },
 ];
 
-const NAV_EXCULUDE_ROUTES = ["/compile"];
+const NAV_EXCULUDE_ROUTES = [
+  "/compile/javascript",
+  "/compile/python",
+  "/compile/java",
+  "/compile/cpp",
+];
 
 function Navbar({ className }: { className?: string }) {
   const pathName = usePathname();
@@ -41,7 +46,7 @@ function Navbar({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        "top-4 fixed rounded-md inset-x-0 w-full max-w-[1200px] mx-auto z-[99999] flex justify-between text-white p-4  px-10 transform transition-transform duration-300 ease-in-out dark:bg-transparent bg-white",
+        "fixed rounded-md inset-x-0 w-full max-w-[1200px] mx-auto z-[99999] flex justify-between text-white p-4  px-10 transform transition-transform duration-300 ease-in-out dark:bg-transparent bg-white",
         className
       )}
     >

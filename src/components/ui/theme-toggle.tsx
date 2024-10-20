@@ -1,5 +1,5 @@
 import { ThemeContext } from "@/context/ThemeContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   AiOutlineMoon as MoonIcon,
   AiOutlineSun as SunIcon,

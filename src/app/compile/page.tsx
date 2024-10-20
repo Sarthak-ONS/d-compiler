@@ -1,103 +1,64 @@
 "use client";
 
-import AceEditor from "react-ace";
-import { useContext } from "react";
-import { AiOutlineUpload, AiOutlineShareAlt } from "react-icons/ai";
+import { Spotlight } from "@/components/ui/spotlight";
+import { IoLogoJavascript, IoLogoPython } from "react-icons/io5";
+import { FaJava } from "react-icons/fa";
+import { TbBrandCpp } from "react-icons/tb";
+import Link from "next/link";
 
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/theme-github";
-import "ace-builds/src-noconflict/theme-terminal";
-import "ace-builds/src-noconflict/ext-language_tools";
+const LANGUAGES = [
+  {
+    title: "Javascript",
+    icon: IoLogoJavascript,
+    href: "/compile/javascript",
+  },
+  {
+    title: "Python",
+    icon: IoLogoPython,
+    href: "/compile/python",
+  },
+  {
+    title: "Java",
+    icon: FaJava,
+    href: "/compile/java",
+  },
+  {
+    title: "C++",
+    icon: TbBrandCpp,
+    href: "/compile/cpp",
+  },
+];
 
-import Button from "@/components/ui/Button";
-import ThemeToggle from "@/components/ui/theme-toggle";
-import { ThemeContext } from "@/context/ThemeContext";
-
-const Page = () => {
-  const { theme } = useContext(ThemeContext);
-
+const page = () => {
   return (
-    <div className="flex flex-row gap-4 h-screen overflow-hidden">
-      <div className="flex-[0.5] h-screen w-full dark:bg-black/60">
-        <div className="flex items-center justify-between px-6 py-2">
-          <span className="text-center text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white">
-            JavaScript
-          </span>
-          <div className="flex gap-2 items-center">
-            <Button
-              EndIcon={AiOutlineUpload}
-              className="bg-white dark:bg-pink-300 text-black dark:text-white text-sm font-semibold"
-              onClick={() => {
-                console.log("Button Clicked");
-              }}
-            >
-              Run
-            </Button>
-            <ThemeToggle />
-          </div>
-        </div>
-        <AceEditor
-          mode="javascript"
-          theme={theme === "light" ? "github" : "terminal"}
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{ $blockScrolling: true }}
-          enableBasicAutocompletion={true}
-          enableLiveAutocompletion={true}
-          enableSnippets={true}
-          focus={true}
-          fontSize={16}
-          showGutter={true}
-          height="100%"
-          width="100%"
-          highlightActiveLine={true}
-          wrapEnabled={true}
-          lineHeight={24}
-          placeholder=" // Write your code here..."
-          commands={[
-            {
-              name: "compile",
-              bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
-              exec: () => {
-                console.log("Compile");
-              },
-            },
-            {
-              name: "run",
-              bindKey: { win: "Ctrl-Shift-Enter", mac: "Command-Shift-Enter" },
-              exec: () => {
-                console.log("Run");
-              },
-            },
-            {
-              name: "Format",
-              bindKey: { win: "Alt-Shift-F", mac: "Command-Shift-F" },
-              exec: () => {
-                console.log("Format");
-              },
-            },
-          ]}
+    <div className="max-w-[1200px] mx-auto">
+      <section className="flex flex-col items-center py-20 h-screen">
+        <Spotlight
+          className="-top-40 left-0 md:left-60 md:-top-20"
+          fill="white"
         />
-      </div>
-      <div className="flex-[0.5] border-l-4">
-        <div className="flex items-center justify-between px-6 py-2">
-          <div className="text-left text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white dark:bg-black/50">
-            Output
-          </div>
-          <div className="flex gap-2 items-center">
-            <Button
-              EndIcon={AiOutlineShareAlt}
-              className="bg-white dark:bg-pink-300 text-black dark:text-white text-sm font-semibold"
-              onClick={() => {
-                console.log("Button Clicked");
-              }}
+        <h3 className="text-2xl md:text-4xl lg:text-7xl py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
+          Select a language
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-10">
+          {LANGUAGES.map(({ title: title, icon: Icon, href: href }, index) => (
+            <Link
+              key={index}
+              href={href}
+              className="flex flex-col items-center gap-2 text-black dark:text-white
+              bg-white dark:bg-gray-200 p-8 rounded-md shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl
+              "
             >
-              Share
-            </Button>
-          </div>
+              <Icon className="text-6xl" />
+              <span className="text-lg md:text-xl lg:text-2xl font-normal tracking-tight">
+                {title}
+              </span>
+            </Link>
+          ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
-export default Page;
+export default page;
