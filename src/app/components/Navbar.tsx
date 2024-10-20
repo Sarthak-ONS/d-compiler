@@ -25,11 +25,11 @@ function Navbar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "font-sans top-10 inset-x-0 w-full z-50  flex justify-between text-white p-4 transform transition-transform duration-300 ease-in-out dark:bg-black bg-white",
+        "font-sans top-4 fixed rounded-md inset-x-0 w-full max-w-[1200px] mx-auto z-[99999] flex justify-between text-white p-4  px-10 transform transition-transform duration-300 ease-in-out dark:bg-transparent bg-white",
         className
       )}
     >
-      <div className="text-2xl font-normal cursor-pointer flex items-center gap-2 text-black dark:text-white">
+      <div className="text-xl font-normal cursor-pointer flex items-center gap-2 text-black dark:text-white">
         <IoTerminalOutline />
         DCompiler
       </div>

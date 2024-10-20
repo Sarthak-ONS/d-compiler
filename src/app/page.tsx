@@ -1,12 +1,14 @@
+"use client";
+
 import Navbar from "@/app/components/Navbar";
-import Button from "./components/ui/Button";
+import Button from "@/app/components/ui/Button";
 
 export default function Home() {
   return (
-    <div className="bg-transparent">
+    <div className="dark:bg-black bg-white">
       <Navbar />
-      <section className="min-h-screen flex flex-col items-center justify-center gap-2 dark:bg-black bg-white">
-        <div className="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl top-[-16rem]">
+      <section className="min-h-screen max-w-[1200px] relative mx-auto flex flex-col items-center justify-center gap-2">
+        <div className="absolute inset-x-0 top-[-10rem] z-0 transform-gpu overflow-hidden blur-3xl sm:top-[-10rem]">
           <svg
             className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
             viewBox="0 0 1155 678"
@@ -38,7 +40,12 @@ export default function Home() {
         <h6 className="text-center text-xs md:text-sm lg:text-lg font-sans py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
           Built with Next.js, TailwindCSS, and TypeScript.
         </h6>
-        <Button className="mx-auto dark:bg-pink-400 py-4 rounded-full !px-28">
+        <Button
+          className="mx-auto dark:bg-pink-400 py-4 rounded-full !px-28 font-bold leading-tight"
+          onClick={() => {
+            console.log("Button Clicked");
+          }}
+        >
           Get Started
         </Button>
       </section>
