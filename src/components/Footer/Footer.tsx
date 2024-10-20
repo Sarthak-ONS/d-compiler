@@ -1,6 +1,6 @@
 "use client";
 
-import { AiOutlineBug } from "react-icons/ai";
+import { AiOutlineBug, AiFillCaretUp } from "react-icons/ai";
 import Link from "next/link";
 import React from "react";
 import { LANGUAGES } from "@/constant";
@@ -22,6 +22,7 @@ const Footer = () => {
         <Link
           className="hover:underline hover:dark:text-white hover:text-zinc-900"
           href="https://www.github.com/Sarthak-ONS"
+          target="_blank"
         >
           GitHub
         </Link>
@@ -34,21 +35,24 @@ const Footer = () => {
         <Link
           className="hover:underline hover:dark:text-white hover:text-zinc-900"
           href="https://sarthakag.dev"
+          target="_blank"
         >
           Portfolio
         </Link>
         <Link
           className="inline-flex hover:underline hover:dark:text-white hover:text-zinc-900"
-          href="https://github.com/wajeshubham/snippng/issues/new"
+          href="https://www.github.com/Sarthak-ONS"
+          target="_blank"
         >
           <AiOutlineBug className="w-4 h-4 mr-1" /> Report a bug
         </Link>
         <Link
           className="inline-flex hover:underline hover:dark:text-white hover:text-zinc-900"
-          href="https://github.com/wajeshubham/snippng/issues/new"
+          href="https://www.github.com/Sarthak-ONS"
+          target="_blank"
         >
-          <AiOutlineBug className="w-4 h-4 mr-1" /> Request a feature
-        </Link>{" "}
+          <AiFillCaretUp className="w-4 h-4 mr-1" /> Request a feature
+        </Link>
       </div>
     </footer>
   );

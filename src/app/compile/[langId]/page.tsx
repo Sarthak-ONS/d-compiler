@@ -103,6 +103,16 @@ const Page = ({ params }: Params) => {
             <Button
               className="bg-white text-black dark:text-white text-sm font-normal dark:bg-[#232323]"
               EndIcon={AiOutlineShareAlt}
+              onClick={() => {
+                try {
+                  const origin = new URL(window.location.href).origin;
+                  navigator.share({
+                    title: "DCompiler",
+                    text: "Check out this code",
+                    url: origin,
+                  });
+                } catch (e) {}
+              }}
             >
               Share
             </Button>
