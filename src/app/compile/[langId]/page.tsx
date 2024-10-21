@@ -111,7 +111,7 @@ const Page = ({ params }: Params) => {
   };
 
   return (
-    <div className="flex flex-row h-screen overflow-hidden dark:bg-[#232323]">
+    <div className="flex flex-col sm:flex-row h-screen overflow-hidden dark:bg-[#232323]">
       <Head>
         <title>{currentLanguageData!.title}</title>
         <meta name="description" content={currentLanguageData!.title} />
