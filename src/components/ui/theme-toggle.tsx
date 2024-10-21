@@ -17,7 +17,6 @@ const ThemeToggle = () => {
 
   const toggleMode = () => {
     disableTransitionsTemporarily();
-    console.log("toggleMode");
     const isDarkMode = document.documentElement.classList.toggle("dark");
     window.localStorage.isDarkMode = isDarkMode;
     toggleTheme();

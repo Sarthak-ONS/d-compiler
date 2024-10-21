@@ -9,6 +9,8 @@ import {
   AiOutlineCopy,
 } from "react-icons/ai";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-c_cpp";
@@ -22,10 +24,8 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/theme-toggle";
 import { ThemeContext } from "@/context/ThemeContext";
-import { ApiError, cn } from "@/utils/util";
+import { cn } from "@/utils/util";
 import { LANGUAGES } from "@/constant";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 
 const MODES: { [key: string]: string } = {
   "97": "javascript",
@@ -37,6 +37,32 @@ const MODES: { [key: string]: string } = {
 interface Params {
   params: { langId: string };
 }
+
+const getAnswer = async ({
+  url,
+  method,
+  body,
+}: {
+  url: string;
+  method: string;
+  body: any;
+}) => {
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+
+    return { data, status: response.status };
+  } catch (error: any) {
+    return error.message || "Something went wrong";
+  }
+};
 
 const Page = ({ params }: Params) => {
   const { theme } = useContext(ThemeContext);
@@ -56,31 +82,29 @@ const Page = ({ params }: Params) => {
     return router.push("/compile");
   }
 
-  const handleSubmitCode = async () => {
+  const handleSubmitCode = async (code: any) => {
     if (!code) {
       return;
     }
 
     setLoading(true);
     try {
-      const response = await fetch("/api/submission", {
+      const { data, status } = await getAnswer({
+        url: "/api/submission",
         method: "POST",
-        body: JSON.stringify({
+        body: {
           source_code: code,
           language_id: langId,
-        }),
-        headers: {
-          "Content-Type": "application/json",
         },
       });
 
-      const data = await response.json();
-      setOutput(data.data);
-    } catch (error) {
-      if (error instanceof ApiError) {
-        console.error(error.message);
+      if (status === 429) {
+        toast.error("Too many requests, please try again later");
       }
-      console.error(error);
+
+      setOutput(data.data);
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -107,7 +131,7 @@ const Page = ({ params }: Params) => {
             <Button
               EndIcon={AiOutlineUpload}
               className="bg-white text-black dark:text-white text-sm font-normal dark:bg-[#232323]"
-              onClick={handleSubmitCode}
+              onClick={() => handleSubmitCode(code)}
               disabled={!code || loading}
             >
               {loading ? "Running..." : "Run"}
@@ -156,26 +180,30 @@ const Page = ({ params }: Params) => {
             {
               name: "compile",
               bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
-              exec: () => {
-                console.log("Compile started");
-                // handleSubmitCode();
-              },
-            },
-            {
-              name: "Format",
-              bindKey: { win: "Alt-Shift-F", mac: "Command-Shift-F" },
-              exec: async () => {
-                console.log("Format");
-                handleSubmitCode();
+              exec: async (editor) => {
+                await handleSubmitCode(editor.getValue());
               },
             },
             {
               name: "Paste",
               bindKey: { win: "Ctrl-V", mac: "Command-V" },
-              exec: async () => {
+              exec: async (editor) => {
                 navigator.clipboard.readText().then((text) => {
-                  setCode(text);
+                  editor.insert(text);
                 });
+              },
+            },
+            {
+              name: "Copy Output",
+              bindKey: { win: "Ctrl-O", mac: "Command-O" },
+              exec: async () => {
+                if (!output?.stdout) {
+                  toast.error("No output to copy");
+                  return;
+                }
+
+                navigator.clipboard.writeText(output?.stdout || "");
+                toast.success("Output copied to clipboard");
               },
             },
           ]}
@@ -210,7 +238,7 @@ const Page = ({ params }: Params) => {
           >
             <div>
               <div className="text-sm">Status</div>
-              <div>{output?.status.description}</div>
+              <div>{output?.status?.description}</div>
             </div>
             <div>
               <div className="text-sm">Time</div>

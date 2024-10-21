@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApiError, ApiResponse } from "@/utils/util";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -31,20 +32,28 @@ export async function POST(request: NextRequest) {
 
     const response = await fetch(url, options as RequestInit); // Send the request
     const result = await response.json(); // Parse the response as JSON
-    console.log(result);
+
+    if (response.status === 429) {
+      return NextResponse.json(
+        new ApiError(429, "Too many requests, please try again later"),
+        {
+          status: 429,
+        }
+      );
+    }
 
     return NextResponse.json(
       new ApiResponse(
         200,
         {
-          ...result,
           message: "Code submitted",
+          ...result,
         },
         "Code submitted!"
       )
     );
-  } catch (error) {
-    console.error(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     return NextResponse.json(new ApiError(500, "Internal server error"), {
       status: 500,
     });

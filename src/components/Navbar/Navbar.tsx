@@ -60,7 +60,7 @@ function Navbar({ className }: { className?: string }) {
             <Link
               key={index}
               href={item.href}
-              className="text-black hover:text-gray-400 transition-colors flex items-center justify-center gap-2 text-sm font-medium cursor-pointer dark:text-white"
+              className="hidden text-black hover:text-gray-400 transition-colors sm:flex items-center justify-center gap-2 text-sm font-medium cursor-pointer dark:text-white"
               target={item.target || "_self"}
             >
               {<item.icon className="text-lg cursor-pointer" />}

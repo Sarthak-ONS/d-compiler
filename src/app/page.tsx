@@ -35,7 +35,7 @@ export default function Home() {
             </defs>
           </svg>
         </div>
-        <h2 className="text-center text-2xl md:text-4xl lg:text-7xl py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
+        <h2 className="text-center text-4xl md:text-4xl lg:text-7xl py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
           DynamicCode, <br /> DebugCompile.
         </h2>
         <h6 className="text-center text-xs md:text-sm lg:text-lg py-2 md:py-10 relative z-20 font-normal tracking-tight text-black dark:text-white">
