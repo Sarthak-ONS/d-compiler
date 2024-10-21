@@ -1,10 +1,11 @@
+import { Toaster } from "react-hot-toast";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 
 import "./globals.css";
+import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Providers } from "./providers";
-import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "DCompiler",
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Footer />
         <Toaster position="top-center" />
       </body>
+      <GoogleAnalytics gaId="G-1DWJQWR414" />
     </html>
   );
 }

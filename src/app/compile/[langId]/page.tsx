@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import AceEditor from "react-ace";
@@ -111,7 +112,9 @@ const Page = ({ params }: Params) => {
                     text: "Check out this code",
                     url: origin,
                   });
-                } catch (e) {}
+                } catch (e) {
+                  console.error(e);
+                }
               }}
             >
               Share
@@ -142,7 +145,10 @@ const Page = ({ params }: Params) => {
             {
               name: "compile",
               bindKey: { win: "Ctrl-Enter", mac: "Command-Enter" },
-              exec: () => handleSubmitCode(),
+              exec: () => {
+                console.log("Compile started");
+                // handleSubmitCode();
+              },
             },
             {
               name: "Format",
@@ -150,6 +156,15 @@ const Page = ({ params }: Params) => {
               exec: async () => {
                 console.log("Format");
                 handleSubmitCode();
+              },
+            },
+            {
+              name: "Paste",
+              bindKey: { win: "Ctrl-V", mac: "Command-V" },
+              exec: async () => {
+                navigator.clipboard.readText().then((text) => {
+                  setCode(text);
+                });
               },
             },
           ]}
