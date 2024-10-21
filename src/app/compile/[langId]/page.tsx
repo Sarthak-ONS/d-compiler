@@ -8,6 +8,7 @@ import {
   AiOutlineShareAlt,
   AiOutlineCopy,
 } from "react-icons/ai";
+import Head from "next/head";
 
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-c_cpp";
@@ -87,6 +88,16 @@ const Page = ({ params }: Params) => {
 
   return (
     <div className="flex flex-row h-screen overflow-hidden dark:bg-[#232323]">
+      <Head>
+        <title>{currentLanguageData!.title}</title>
+        <meta name="description" content={currentLanguageData!.title} />
+        <meta property="og:title" content={currentLanguageData!.title} />
+        <meta property="og:description" content={currentLanguageData!.title} />
+
+        <meta name="twitter:title" content={currentLanguageData!.title} />
+        <meta name="twitter:description" content={currentLanguageData!.title} />
+      </Head>
+
       <div className="flex-[0.5] h-screen w-full ">
         <div className="flex items-center justify-between p-6 py-4">
           <span className="text-center text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white">

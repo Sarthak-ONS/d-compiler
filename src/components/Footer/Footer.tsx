@@ -22,7 +22,7 @@ const Footer = () => {
         className="text-center
       dark:text-zinc-400 text-zinc-600 text-sm"
       >
-        Made with ❤️ by Sarthak Agarwal &nbsp; &&nbsp; Amisha Verma
+        Made with ❤️ by Sarthak Agarwal
       </div>
       <div className="w-full py-6 gap-5 text-xs dark:text-zinc-400 text-zinc-600 flex justify-center items-center flex-wrap max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         <Link
