@@ -123,7 +123,7 @@ const Page = ({ params }: Params) => {
       </Head>
 
       <div className="flex-[0.5] h-screen w-full ">
-        <div className="flex items-center justify-between p-6 py-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 py-4 gap-4">
           <span className="text-center text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white">
             {currentLanguageData!.title}
           </span>
@@ -210,7 +210,7 @@ const Page = ({ params }: Params) => {
         />
       </div>
       <div className="flex-[0.5] border-l-4">
-        <div className="flex items-center justify-between p-6 py-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 py-4 gap-4">
           <div className="text-left text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white">
             Output
           </div>
