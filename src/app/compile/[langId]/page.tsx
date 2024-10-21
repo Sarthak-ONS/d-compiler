@@ -26,6 +26,12 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 import { ThemeContext } from "@/context/ThemeContext";
 import { cn } from "@/utils/util";
 import { LANGUAGES } from "@/constant";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalTrigger,
+} from "@/components/Modal/Modal";
 
 const MODES: { [key: string]: string } = {
   "97": "javascript",
@@ -210,7 +216,7 @@ const Page = ({ params }: Params) => {
         />
       </div>
       <div className="flex-[0.5] border-l-4">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 py-4 gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-6 py-4 gap-4">
           <div className="text-left text-2xl md:text-xl lg:text-2xl relative z-20 font-normal tracking-tight text-black dark:text-white">
             Output
           </div>
@@ -225,6 +231,64 @@ const Page = ({ params }: Params) => {
             >
               Copy
             </Button>
+            <Modal>
+              <ModalTrigger>
+                <Button className="bg-white text-black dark:text-white text-sm font-normal dark:bg-[#232323]">
+                  Shortcuts
+                </Button>
+              </ModalTrigger>
+              <ModalBody>
+                <ModalContent>
+                  <h3 className="text-black dark:text-white text-lg font-semibold mb-4">
+                    Available Shortcuts
+                  </h3>
+                  <table className="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-600">
+                    <thead className="bg-gray-950 dark:bg-[#232323] text-left text-black dark:text-white">
+                      <tr>
+                        <th className="px-4 py-2 border-b border-gray-300 dark:border-gray-700 text-sm font-medium">
+                          Shortcut
+                        </th>
+                        <th className="px-4 py-2 border-b border-gray-300 dark:border-gray-700 text-sm font-medium">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-gray-950 dark:bg-[#232323] text-black dark:text-white">
+                        <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 text-sm">
+                          Ctrl + Enter
+                        </td>
+                        <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 text-sm">
+                          Run the code
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-950 dark:bg-[#232323] text-black dark:text-white">
+                        <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 text-sm">
+                          Ctrl + V
+                        </td>
+                        <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 text-sm">
+                          Paste the code
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-950 dark:bg-[#232323] text-black dark:text-white">
+                        <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 text-sm">
+                          Ctrl + O
+                        </td>
+                        <td className="px-4 py-3 border-b border-gray-300 dark:border-gray-700 text-sm">
+                          Copy the output
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div className="mt-4">
+                    <p className="text-black dark:text-white text-sm">
+                      Note: These shortcuts can be used in the editor
+                    </p>
+                  </div>
+                </ModalContent>
+              </ModalBody>
+            </Modal>
           </div>
         </div>
         <div>
