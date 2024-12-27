@@ -47,14 +47,14 @@ const Footer = () => {
         </Link>
         <Link
           className="inline-flex hover:underline hover:dark:text-white hover:text-zinc-900"
-          href="https://www.github.com/Sarthak-ONS"
+          href="https://github.com/Sarthak-ONS/d-compiler"
           target="_blank"
         >
           <AiOutlineBug className="w-4 h-4 mr-1" /> Report a bug
         </Link>
         <Link
           className="inline-flex hover:underline hover:dark:text-white hover:text-zinc-900"
-          href="https://www.github.com/Sarthak-ONS"
+          href="https://github.com/Sarthak-ONS/d-compiler"
           target="_blank"
         >
           <AiFillCaretUp className="w-4 h-4 mr-1" /> Request a feature
